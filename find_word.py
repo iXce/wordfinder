@@ -1,20 +1,26 @@
 #!/usr/bin/env python
 
 import sys
+import marisa_trie
 
-chars = [c for c in sys.argv[1]]
+dic = open("fr_dic_ascii").read().split("\n")
+trie = marisa_trie.Trie(dic)
+
+chars = [c for c in unicode(sys.argv[1])]
 chars.sort()
 
-def gen(chars, n):
+def gen(prefix, chars, n):
     chars_u = set(chars)
     for c in chars_u:
+        subprefix = prefix + c
         if n == 1:
-            yield c
-        else:
+            if subprefix in trie:
+                yield subprefix
+        elif trie.has_keys_with_prefix(subprefix):
             chars2 = list(chars)
             chars2.remove(c)
-            for w in gen(chars2, n - 1):
-                yield c + w
+            for w in gen(subprefix, chars2, n - 1):
+                yield w
 
-for w in gen(chars, int(sys.argv[2])):
+for w in gen("", chars, int(sys.argv[2])):
     print w
