@@ -8,7 +8,7 @@ import marisa_trie
 trie = marisa_trie.Trie()
 trie.load(locale + "_trie")
 
-chars = [c for c in unicode(sys.argv[1])]
+chars = list(unicode(sys.argv[1]))
 chars.sort()
 
 def gen(prefix, chars, n):
