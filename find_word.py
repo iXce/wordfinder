@@ -25,4 +25,4 @@ def gen(prefix, chars, n):
                 yield w
 
 for w in gen("", chars, int(sys.argv[2])):
-    print w
+    print(w)
