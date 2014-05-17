@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
+locale = "fr"
+
 import sys
 import marisa_trie
 
-dic = open("fr_dic_ascii").read().split("\n")
-trie = marisa_trie.Trie(dic)
+trie = marisa_trie.Trie()
+trie.load(locale + "_trie")
 
 chars = [c for c in unicode(sys.argv[1])]
 chars.sort()
